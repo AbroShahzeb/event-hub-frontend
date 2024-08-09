@@ -1,10 +1,12 @@
+import logo from "../assets/logo.svg";
+
+import { Link } from "react-router-dom";
+
 function Logo() {
 	return (
-		<div className='flex items-center justify-center'>
-			<p className='text-2xl font-bold text-accent-light dark:text-accent-dark'>
-				LOGO
-			</p>
-		</div>
+		<Link to='/' className='flex items-center justify-center'>
+			<img src={logo} alt='Logo' className='w-12' />
+		</Link>
 	);
 }
 

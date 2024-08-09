@@ -6,6 +6,8 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import CustomCloseButton from "./components/CustomClose";
+import PasswordResetSuccess from "./screens/PasswordResetSuccess";
+import PageNotFound from "./screens/PageNotFound";
 
 function App() {
 	return (
@@ -21,6 +23,11 @@ function App() {
 				<Route path='/register' element={<Register />} />
 				<Route path='/login' element={<Login />} />
 				<Route path='/reset-password' element={<ResetPassword />} />
+				<Route
+					path='/password-reset-success'
+					element={<PasswordResetSuccess />}
+				/>
+				<Route path='*' element={<PageNotFound />}></Route>
 			</Routes>
 		</Router>
 	);

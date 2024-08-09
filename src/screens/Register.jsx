@@ -1,5 +1,5 @@
 import Logo from "../components/Logo";
-import Google from "../assets/devicon_google.svg";
+import { Icon } from "@iconify/react";
 
 import { useForm } from "react-hook-form";
 import isEmail from "validator/lib/isEmail";
@@ -7,9 +7,13 @@ import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import { useEffect } from "react";
-import { error, success } from "../helpers/toastHelper";
+
+import { useGoogleLogin } from "@react-oauth/google";
 
 function Register() {
+	useEffect(function () {
+		document.title = "Register | Event Hub";
+	}, []);
 	const {
 		register,
 		handleSubmit,
@@ -17,15 +21,22 @@ function Register() {
 		getValues,
 	} = useForm();
 
+	const onSuccess = (tokenResponse) => {
+		console.log(tokenResponse);
+	};
+	const onFailure = (error) => {
+		console.log("Login Failed:", error);
+	};
+
+	const login = useGoogleLogin({
+		onSuccess: (tokenResponse) => console.log(tokenResponse.access_token),
+		onError: (error) => console.log("Login Failed:", error),
+	});
+
 	function handleRegister(data) {
 		if (getValues("password") !== getValues("passwordConfirm"))
 			return toast.error("Passwords don't match");
 	}
-
-	// useEffect(function () {
-	// 	success("Success");
-	// 	error("Error");
-	// }, []);
 
 	return (
 		<main className='flex items-center justify-center relative p-6 min-h-screen'>
@@ -39,14 +50,18 @@ function Register() {
 						<h2 className='text-heading-4 md:text-heading-3 font-bold font-headings'>
 							Register for Event Hub
 						</h2>
-						<p className='font-normal text-text-secondary dark:text-text-secondary-light'>
+						<p className='font-normal text-text-secondary-light dark:text-text-secondary-dark text-body-big'>
 							Register and see the awesome events going around
 						</p>
 					</div>
 				</div>
 
-				<div className='px-4 py-3 text-[1rem] leading-normal font-normal flex gap-4 self-stretch items-center justify-center border-[1px] border-input-border-light dark:border-input-border-dark rounded-primary cursor-pointer hover:bg-input-border-light dark:hover:bg-input-border-dark transition-all'>
-					<img src={Google} alt='Google icon' />
+				<div
+					onClick={login}
+					className='px-4 py-3 text-[1rem] leading-normal font-normal flex gap-4 self-stretch items-center justify-center border-[1px] border-input-border-light dark:border-input-border-dark rounded-primary cursor-pointer hover:bg-input-border-light dark:hover:bg-input-border-dark transition-all'
+				>
+					<Icon icon='devicon:google' fontSize={24} />
+
 					<span>Continue with Google</span>
 				</div>
 

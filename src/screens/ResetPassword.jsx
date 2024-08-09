@@ -3,12 +3,18 @@ import Logo from "../components/Logo";
 import { useForm } from "react-hook-form";
 import isEmail from "validator/lib/isEmail";
 
+import { useEffect } from "react";
+
 function ResetPassword() {
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
 	} = useForm();
+
+	useEffect(function () {
+		document.title = "Reset Password | Event Hub";
+	}, []);
 
 	function handleRegister(data) {}
 
@@ -24,7 +30,7 @@ function ResetPassword() {
 						<h2 className='text-heading-4 md:text-heading-3 font-bold font-headings'>
 							Reset Password
 						</h2>
-						<p className='font-normal text-text-secondary dark:text-text-secondary-light'>
+						<p className='font-normal text-body-big text-text-secondary-light dark:text-text-secondary-dark'>
 							Enter your email and we’ll send you new password in your email.
 						</p>
 					</div>

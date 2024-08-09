@@ -1,9 +1,11 @@
 import Logo from "../components/Logo";
-import Google from "../assets/devicon_google.svg";
+import { Icon } from "@iconify/react";
 
 import { useForm } from "react-hook-form";
 import isEmail from "validator/lib/isEmail";
 import { Link } from "react-router-dom";
+
+import { useEffect } from "react";
 
 function Login() {
 	const {
@@ -11,6 +13,10 @@ function Login() {
 		handleSubmit,
 		formState: { errors },
 	} = useForm();
+
+	useEffect(function () {
+		document.title = "Login | Event Hub";
+	}, []);
 
 	function handleRegister(data) {}
 
@@ -26,14 +32,14 @@ function Login() {
 						<h2 className='text-heading-4 md:text-heading-3 font-bold font-headings'>
 							Login to Event Hub
 						</h2>
-						<p className='font-normal text-text-secondary dark:text-text-secondary-light'>
+						<p className='font-normal text-body-big text-text-secondary-light dark:text-text-secondary-dark'>
 							Welcome back, login and see what happened in your absnece
 						</p>
 					</div>
 				</div>
 
 				<div className='px-4 py-3 text-[1rem] leading-normal font-normal flex gap-4 self-stretch items-center justify-center border-[1px] border-input-border-light dark:border-input-border-dark rounded-primary cursor-pointer hover:bg-input-border-light dark:hover:bg-input-border-dark transition-all'>
-					<img src={Google} alt='Google icon' />
+					<Icon icon='devicon:google' fontSize={24} />
 					<span>Continue with Google</span>
 				</div>
 

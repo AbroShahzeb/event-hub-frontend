@@ -1,137 +1,64 @@
-import Logo from "../components/Logo";
-import { Icon } from "@iconify/react";
-
-import { useForm } from "react-hook-form";
-import isEmail from "validator/lib/isEmail";
-import { Link } from "react-router-dom";
-
-import { useEffect } from "react";
+import Google from '../assets/devicon_google.svg';
 
 function Login() {
-	const {
-		register,
-		handleSubmit,
-		formState: { errors },
-	} = useForm();
+    return (
+        <main className='w-full min-h-screen flex justify-center items-center px-4'>
+            <img
+                src='https://play.tailwindcss.com/img/beams.jpg'
+                alt=''
+                class='absolute top-1/2 left-1/2 max-w-none -translate-x-1/2 -translate-y-1/2 h-full'
+                width='100%'
+            />
+            <div class='absolute inset-0 bg-[url(https://play.tailwindcss.com/img/grid.svg)] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]'></div>
+            <div className='max-w-sm p-8 flex flex-col items-start gap-6 border rounded-2xl shadow-lg bg-white bg-opacity-75 backdrop-blur-lg z-10'>
+                <div className='flex flex-col self-stretch gap-2'>
+                    <h2 className='text-2xl md:text-3xl font-extrabold text-slate-700 leading-tight tracking-tight text-headings'>
+                        Login
+                    </h2>
+                    <p className=' text-slate-500 leading-normal'>
+                        Welcome back, login to catch up with missed things
+                    </p>
+                </div>
 
-	useEffect(function () {
-		document.title = "Login | Event Hub";
-	}, []);
+                <div className='flex flex-col gap-2 self-stretch'>
+                    <div className='flex items-center justify-center p-3 text-base rounded-xl border gap-2 '>
+                        <img src={Google} alt='Google Icon' />
+                        <p className='text-slate-600'>Continue with Google</p>
+                    </div>
 
-	function handleRegister(data) {}
+                    <p className='before:content-[""] before:h-[1px] before:w-full after:content-[""] after:h-[1px] after:w-full flex items-center gap-1 text-slate-400 before:bg-slate-400 after:bg-slate-400  text-xs'>
+                        OR
+                    </p>
+                </div>
 
-	return (
-		<main className='flex items-center justify-center relative p-6 min-h-screen'>
-			<div className='absolute top-3 left-3'>
-				<Logo />
-			</div>
+                <form className='w-full flex flex-col gap-2'>
+                    <div>
+                        <input
+                            type='text'
+                            placeholder='example@email.com'
+                            className='p-3 border rounded-xl w-full'
+                        />
+                    </div>
+                    <div>
+                        <input
+                            type='password'
+                            placeholder='Password'
+                            className='p-3 border rounded-xl w-full focus:outline-none focus:border-[#ff007f] focus:shadow-sm'
+                        />
+                    </div>
 
-			<div className='grid gap-8 mt-8 w-full xs:w-[375px]'>
-				<div>
-					<div className='flex flex-col gap-1'>
-						<h2 className='text-heading-4 md:text-heading-3 font-bold font-headings'>
-							Login to Event Hub
-						</h2>
-						<p className='font-normal text-body-big text-text-secondary-light dark:text-text-secondary-dark'>
-							Welcome back, login and see what happened in your absnece
-						</p>
-					</div>
-				</div>
-
-				<div className='px-4 py-3 text-[1rem] leading-normal font-normal flex gap-4 self-stretch items-center justify-center border-[1px] border-input-border-light dark:border-input-border-dark rounded-primary cursor-pointer hover:bg-input-border-light dark:hover:bg-input-border-dark transition-all'>
-					<Icon icon='devicon:google' fontSize={24} />
-					<span>Continue with Google</span>
-				</div>
-
-				<div className="text-sm text-text-secondary-light dark:text-text-secondary-dark before:contents-[''] before:w-full before:h-[1px] before:bg-text-secondary-light before:dark:bg-text-secondary-dark after:contents-[''] after:w-full after:h-[1px] after:bg-text-secondary-light after:dark:bg-text-secondary-dark flex items-center gap-1">
-					or
-				</div>
-
-				<form
-					className='flex flex-col items-start self-stretch gap-4'
-					onSubmit={handleSubmit(handleRegister)}
-				>
-					{/* Email Input */}
-					<div className='self-stretch relative flex gap-1 flex-col'>
-						<div className='relative'>
-							<input
-								type='text'
-								placeholder='Enter email'
-								className={`p-4 rounded-primary bg-input-bg-light dark:bg-input-bg-dark border-[1px]  flex items-center justify-center w-full text-body focus:outline-none text-inherit inp-animation ${
-									errors?.email
-										? "border-red-500"
-										: "focus:border-accent-light dark:focus:border-accent-dark border-input-border-light dark:border-input-border-dark"
-								}`}
-								{...register("email", {
-									required: "Email is required",
-									validate: (value) =>
-										isEmail(value) || "Please enter a valid email address",
-								})}
-							/>
-							<p className='placeholder absolute top-0 -translate-y-1/2 left-3 text-sm p-[2px] px-2 bg-secondary-light dark:bg-secondary-dark  text-white'>
-								Enter email
-							</p>
-						</div>
-						{errors?.email && (
-							<p className='text-end text-error text-xs'>
-								{errors.email.message}
-							</p>
-						)}
-					</div>
-
-					{/* Password Input */}
-					<div className='self-stretch relative flex gap-1 flex-col'>
-						<div className='relative'>
-							<input
-								type='password'
-								placeholder='Enter password'
-								className={`p-4 rounded-primary bg-input-bg-light dark:bg-input-bg-dark border-[1px]  flex items-center justify-center w-full text-body focus:outline-none  text-inherit inp-animation ${
-									errors?.password
-										? "border-red-500"
-										: "focus:border-accent-light dark:focus:border-accent-dark border-input-border-light dark:border-input-border-dark"
-								}`}
-								{...register("password", {
-									required: "Password is required",
-								})}
-							/>
-							<p className='placeholder absolute top-0 -translate-y-1/2 left-3 text-sm p-[2px] px-2 bg-secondary-light dark:bg-secondary-dark  text-white'>
-								Enter password
-							</p>
-						</div>
-						{errors?.password && (
-							<p className='text-end text-error text-xs'>
-								{errors.password.message}
-							</p>
-						)}
-					</div>
-
-					<button className='p-4 self-stretch flex items-center justify-center rounded-primary bg-btn-accent-light dark:bg-btn-accent-dark hover:bg-btn-accent-hover-light dark:hover:bg-btn-accent-hover-dark text-body font-bold'>
-						Login
-					</button>
-
-					{/* Other input fields here... */}
-				</form>
-
-				<div className='text-body leading-normal self-stretch text-center flex flex-col gap-4'>
-					<Link
-						className='font-bold text-link-light dark:text-link-dark'
-						to='/reset-password'
-					>
-						Forgot Password?
-					</Link>
-					<p>
-						Not a member?{" "}
-						<Link
-							className='font-bold text-link-light dark:text-link-dark'
-							to='/register'
-						>
-							Register
-						</Link>
-					</p>
-				</div>
-			</div>
-		</main>
-	);
+                    <button className='p-3 bg-[#ff007f] text-white font-bold rounded-xl self-stretch w-full'>
+                        Login
+                    </button>
+                </form>
+                <div className='flex flex-col self-stretch gap-1 items-center'>
+                    <p className='text-blue-500 font-bold'>Forgot password?</p>
+                    <p>
+                        Not a member? <span className='text-blue-500 font-bold'>Register</span>
+                    </p>
+                </div>
+            </div>
+        </main>
+    );
 }
-
 export default Login;

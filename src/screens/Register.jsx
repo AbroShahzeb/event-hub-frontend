@@ -1,216 +1,137 @@
-import Logo from "../components/Logo";
-import { Icon } from "@iconify/react";
+import Google from '../assets/devicon_google.svg';
+import { useState } from 'react';
+import { Icon } from '@iconify/react';
 
-import { useForm } from "react-hook-form";
-import isEmail from "validator/lib/isEmail";
-import { Link } from "react-router-dom";
-import { toast } from "react-toastify";
+import { useForm } from 'react-hook-form';
+import { isEmail } from 'validator';
 
-import { useEffect } from "react";
+import { Link } from 'react-router-dom';
 
-import { useGoogleLogin } from "@react-oauth/google";
+import Logo from '../components/Logo';
 
-function Register() {
-	useEffect(function () {
-		document.title = "Register | Event Hub";
-	}, []);
-	const {
-		register,
-		handleSubmit,
-		formState: { errors },
-		getValues,
-	} = useForm();
+function Login() {
+    const [isPasswordShown, setIsPasswordShown] = useState(false);
 
-	const onSuccess = (tokenResponse) => {
-		console.log(tokenResponse);
-	};
-	const onFailure = (error) => {
-		console.log("Login Failed:", error);
-	};
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm();
 
-	const login = useGoogleLogin({
-		onSuccess: (tokenResponse) => console.log(tokenResponse.access_token),
-		onError: (error) => console.log("Login Failed:", error),
-	});
+    function handleLogin(data) {
+        console.log(data);
+    }
 
-	function handleRegister(data) {
-		if (getValues("password") !== getValues("passwordConfirm"))
-			return toast.error("Passwords don't match");
-	}
+    return (
+        <main className='w-full min-h-screen h-full flex gap-8 flex-col justify-start items-center px-4 text-text-light relative'>
+            <img
+                src='https://play.tailwindcss.com/img/beams.jpg'
+                alt=''
+                className='absolute inset-0 w-full h-full object-cover'
+            />
+            <div class='fixed inset-0 bg-[url(https://play.tailwindcss.com/img/grid.svg)] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]'></div>
+            <div className='z-30 self-start mt-4'>
+                <Logo />
+            </div>
+            <div className='max-w-sm p-8 flex flex-col items-start gap-6 border rounded-2xl shadow-lg bg-white bg-opacity-75 backdrop-blur-lg z-10 mb-8'>
+                <div className='flex flex-col self-stretch gap-2'>
+                    <h2 className='text-2xl md:text-3xl font-extrabold leading-tight tracking-tight text-headings'>
+                        👋 Hello there
+                    </h2>
+                    <p className=' text-secondary-light leading-normal'>
+                        Register and be part of this awesome journey with us
+                    </p>
+                </div>
 
-	return (
-		<main className='flex items-center justify-center relative p-6 min-h-screen'>
-			<div className='absolute top-3 left-3'>
-				<Logo />
-			</div>
+                <div className='flex flex-col gap-2 self-stretch'>
+                    <div className='flex items-center justify-center p-3 text-base rounded-xl border gap-2 '>
+                        <img src={Google} alt='Google Icon' />
+                        <p className='text-secondary-light'>Continue with Google</p>
+                    </div>
 
-			<div className='grid gap-8 mt-8 w-full xs:w-[375px]'>
-				<div>
-					<div className='flex flex-col gap-1'>
-						<h2 className='text-heading-4 md:text-heading-3 font-bold font-headings'>
-							Register for Event Hub
-						</h2>
-						<p className='font-normal text-text-secondary-light dark:text-text-secondary-dark text-body-big'>
-							Register and see the awesome events going around
-						</p>
-					</div>
-				</div>
+                    <p className='before:content-[""] before:h-[1px] before:w-full after:content-[""] after:h-[1px] after:w-full flex items-center gap-1 text-slate-400 before:bg-slate-400 after:bg-slate-400  text-xs'>
+                        OR
+                    </p>
+                </div>
 
-				<div
-					onClick={login}
-					className='px-4 py-3 text-[1rem] leading-normal font-normal flex gap-4 self-stretch items-center justify-center border-[1px] border-input-border-light dark:border-input-border-dark rounded-primary cursor-pointer hover:bg-input-border-light dark:hover:bg-input-border-dark transition-all'
-				>
-					<Icon icon='devicon:google' fontSize={24} />
+                <form className='w-full flex flex-col gap-2' onSubmit={handleSubmit(handleLogin)}>
+                    <div className='flex flex-col gap-1'>
+                        <input
+                            type='text'
+                            placeholder='John Doe'
+                            className='p-3 border rounded-xl w-full text-inherit focus:outline-none focus:border-accent-1-light focus:shadow-sm'
+                            {...register('name', {
+                                required: 'name is required',
+                                minLength: {
+                                    value: 3,
+                                    message: 'Name cannot be shorter than 3 characters',
+                                },
+                            })}
+                        />
+                        {errors?.name && (
+                            <p className='text-secondary-light px-2 text-sm font-semibold'>
+                                {errors.name.message}
+                            </p>
+                        )}
+                    </div>
+                    <div className='flex flex-col gap-1'>
+                        <input
+                            type='text'
+                            placeholder='example@gmail.com'
+                            className='p-3 border rounded-xl w-full text-inherit focus:outline-none focus:border-accent-1-light focus:shadow-sm'
+                            {...register('email', {
+                                required: 'Email is required',
+                                validate: (val) => isEmail(val) || 'Please enter a valid email',
+                            })}
+                        />
+                        {errors?.email && (
+                            <p className='text-secondary-light px-2 text-sm font-semibold'>
+                                {errors.email.message}
+                            </p>
+                        )}
+                    </div>
+                    <div className='flex flex-col gap-1'>
+                        <div className='flex items-center'>
+                            <input
+                                type={isPasswordShown ? 'text' : 'password'}
+                                placeholder='Password'
+                                className='p-3 border rounded-xl w-full focus:outline-none focus:border-[#ff007f] focus:shadow-sm text-inherit'
+                                {...register('password', {
+                                    required: 'Password is required',
+                                    minLength: {
+                                        value: 8,
+                                        message: 'Password cannot be shorter than 8 characters',
+                                    },
+                                })}
+                            />
+                            <Icon
+                                icon={isPasswordShown ? 'uil:eye-slash' : 'uil:eye'}
+                                className='-ml-10 text-2xl text-text-light hover:text-accent-1-light transition-all cursor-pointer'
+                                onClick={() => setIsPasswordShown((prev) => !prev)}
+                            />
+                        </div>
 
-					<span>Continue with Google</span>
-				</div>
+                        {errors?.password && (
+                            <p className='text-secondary-light px-2 text-sm font-semibold'>
+                                {errors.password.message}
+                            </p>
+                        )}
+                    </div>
 
-				<div className="text-sm text-text-secondary-light dark:text-text-secondary-dark before:contents-[''] before:w-full before:h-[1px] before:bg-text-secondary-light before:dark:bg-text-secondary-dark after:contents-[''] after:w-full after:h-[1px] after:bg-text-secondary-light after:dark:bg-text-secondary-dark flex items-center gap-1">
-					or
-				</div>
-
-				<form
-					className='flex flex-col items-start self-stretch gap-4'
-					onSubmit={handleSubmit(handleRegister)}
-				>
-					<div className='self-stretch relative flex gap-1 flex-col'>
-						<div className='relative'>
-							<input
-								type='text'
-								placeholder='Enter name'
-								className={`p-4 rounded-primary bg-input-bg-light dark:bg-input-bg-dark border-[1px] flex items-center justify-center w-full text-body focus:outline-none  text-inherit inp-animation ${
-									errors?.name
-										? "border-red-500"
-										: "focus:border-accent-light dark:focus:border-accent-dark border-input-border-light dark:border-input-border-dark"
-								}`}
-								{...register("name", {
-									required: "Name is required",
-									minLength: {
-										value: 3,
-										message: "Name cannot be shorter than 3 characters",
-									},
-								})}
-							/>
-							<p className='placeholder absolute top-0 -translate-y-1/2 left-3 text-sm p-[2px] px-2 bg-secondary-light dark:bg-secondary-dark  text-white'>
-								Enter name
-							</p>
-						</div>
-						{errors?.name && (
-							<p className='text-end text-error text-xs'>
-								{errors.name.message}
-							</p>
-						)}
-					</div>
-
-					{/* Email Input */}
-					<div className='self-stretch relative flex gap-1 flex-col'>
-						<div className='relative'>
-							<input
-								type='text'
-								placeholder='Enter email'
-								className={`p-4 rounded-primary bg-input-bg-light dark:bg-input-bg-dark border-[1px]  flex items-center justify-center w-full text-body focus:outline-none text-inherit inp-animation ${
-									errors?.email
-										? "border-red-500"
-										: "focus:border-accent-light dark:focus:border-accent-dark border-input-border-light dark:border-input-border-dark"
-								}`}
-								{...register("email", {
-									required: "Email is required",
-									validate: (value) =>
-										isEmail(value) || "Please enter a valid email address",
-								})}
-							/>
-							<p className='placeholder absolute top-0 -translate-y-1/2 left-3 text-sm p-[2px] px-2 bg-secondary-light dark:bg-secondary-dark  text-white'>
-								Enter email
-							</p>
-						</div>
-						{errors?.email && (
-							<p className='text-end text-error text-xs'>
-								{errors.email.message}
-							</p>
-						)}
-					</div>
-
-					{/* Password Input */}
-					<div className='self-stretch relative flex gap-1 flex-col'>
-						<div className='relative'>
-							<input
-								type='password'
-								placeholder='Enter password'
-								className={`p-4 rounded-primary bg-input-bg-light dark:bg-input-bg-dark border-[1px]  flex items-center justify-center w-full text-body focus:outline-none  text-inherit inp-animation ${
-									errors?.password
-										? "border-red-500"
-										: "focus:border-accent-light dark:focus:border-accent-dark border-input-border-light dark:border-input-border-dark"
-								}`}
-								{...register("password", {
-									required: "Password is required",
-									minLength: {
-										value: 8,
-										message: "Password cannot be shorter than 8 characters",
-									},
-								})}
-							/>
-							<p className='placeholder absolute top-0 -translate-y-1/2 left-3 text-sm p-[2px] px-2 bg-secondary-light dark:bg-secondary-dark  text-white'>
-								Enter password
-							</p>
-						</div>
-						{errors?.password && (
-							<p className='text-end text-error text-xs'>
-								{errors.password.message}
-							</p>
-						)}
-					</div>
-
-					{/* Password Confirm Input */}
-					<div className='self-stretch relative flex gap-1 flex-col'>
-						<div className='relative'>
-							<input
-								type='password'
-								placeholder='Enter password confirm'
-								className={`p-4 rounded-primary bg-input-bg-light dark:bg-input-bg-dark border-[1px]  flex items-center justify-center w-full text-body focus:outline-none text-inherit inp-animation ${
-									errors?.passwordConfirm
-										? "border-red-500"
-										: "focus:border-accent-light dark:focus:border-accent-dark border-input-border-light dark:border-input-border-dark"
-								}`}
-								{...register("passwordConfirm", {
-									required: "Password confirmation is required",
-									minLength: {
-										value: 8,
-										message: "Password cannot be shorter than 8 characters",
-									},
-								})}
-							/>
-							<p className='placeholder absolute top-0 -translate-y-1/2 left-3 text-sm p-[2px] px-2 bg-secondary-light dark:bg-secondary-dark  text-white'>
-								Enter password confirm
-							</p>
-						</div>
-						{errors?.passwordConfirm && (
-							<p className='text-end text-error text-xs'>
-								{errors.passwordConfirm.message}
-							</p>
-						)}
-					</div>
-
-					<button className='p-4 self-stretch flex items-center justify-center rounded-primary bg-btn-accent-light dark:bg-btn-accent-dark hover:bg-btn-accent-hover-light dark:hover:bg-btn-accent-hover-dark text-body font-bold'>
-						Register
-					</button>
-
-					{/* Other input fields here... */}
-				</form>
-
-				<div className='text-body leading-normal self-stretch text-center'>
-					<p>
-						Already a member?{" "}
-						<Link
-							className='font-bold text-link-light dark:text-link-dark'
-							to='/login'
-						>
-							Login
-						</Link>
-					</p>
-				</div>
-			</div>
-		</main>
-	);
+                    <button className='p-3 bg-accent-1-light text-white font-bold rounded-xl self-stretch w-full  hover:shadow-accent-1-light/20 hover:shadow-xl'>
+                        Register
+                    </button>
+                </form>
+                <div className='flex flex-col self-stretch gap-1 items-center'>
+                    <p>
+                        Already a member?{' '}
+                        <Link to='/login' className='text-link-light underline'>
+                            Login
+                        </Link>
+                    </p>
+                </div>
+            </div>
+        </main>
+    );
 }
-
-export default Register;
+export default Login;

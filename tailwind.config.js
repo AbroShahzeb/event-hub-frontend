@@ -5,29 +5,29 @@ export default {
     theme: {
         extend: {
             colors: {
-                primary: {
-                    light: '#007BFF',
-                    dark: '#1E90FF',
-                },
+                // primary: {
+                //     light: '#007BFF',
+                //     dark: '#1E90FF',
+                // },
                 secondary: {
                     light: '#6C757D',
                     dark: '#6C757D',
                 },
-                accent: {
-                    light: '#50E3C2',
-                    dark: '#50E3C2',
+                'accent-1': {
+                    light: 'hsl(330.12, 100%, 50%)',
+                    dark: 'hsl(330.12, 100%, 50%)',
                 },
                 surface: {
                     light: '#ffffff',
-                    dark: '#343A40 ',
+                    dark: 'hsl(222.22, 47.37%, 11.18%)',
                 },
                 text: {
-                    // light: '#343A40',
-                    // dark: '#F8F9FA',
+                    light: 'rgb(51 65 85)',
+                    dark: 'rgb(241 245 249)',
                 },
                 'text-secondary': {
-                    light: '#6C757D',
-                    dark: '#CED4DA',
+                    light: 'hsl(215.29, 19.32%, 34.51%)',
+                    dark: ' rgb(226 232 240)',
                 },
                 'btn-primary': {
                     light: '#007BFF',

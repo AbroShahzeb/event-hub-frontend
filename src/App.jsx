@@ -1,36 +1,60 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Register from "./screens/Register";
-import Login from "./screens/Login";
-import ResetPassword from "./screens/ResetPassword";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Register from './screens/Register';
+import Login from './screens/Login';
+import ResetPassword from './screens/ResetPassword';
+import { Toaster } from 'react-hot-toast';
+import 'react-toastify/dist/ReactToastify.css';
 
-import CustomCloseButton from "./components/CustomClose";
-import PasswordResetSuccess from "./screens/PasswordResetSuccess";
-import PageNotFound from "./screens/PageNotFound";
+import { useEffect } from 'react';
+
+import PasswordResetSuccess from './screens/PasswordResetSuccess';
+import PageNotFound from './screens/PageNotFound';
+import Dashboard from './screens/Dashboard';
+
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import RequireAuth from './components/RequireAuth';
+
+export const queryClient = new QueryClient();
 
 function App() {
-	return (
-		<Router>
-			<ToastContainer
-				closeButton={CustomCloseButton}
-				toastClassName={() =>
-					"relative flex p-4 min-h-10 rounded-md justify-between overflow-hidden cursor-pointer bg-white text-gray-800 dark:bg-gray-800 dark:text-gray-200 shadow-lg"
-				}
-			/>
+    useEffect(function () {
+        const token = localStorage.getItem('token');
+        if (token) queryClient.setQueryData('authToken', token);
+    });
 
-			<Routes>
-				<Route path='/register' element={<Register />} />
-				<Route path='/login' element={<Login />} />
-				<Route path='/reset-password' element={<ResetPassword />} />
-				<Route
-					path='/password-reset-success'
-					element={<PasswordResetSuccess />}
-				/>
-				<Route path='*' element={<PageNotFound />}></Route>
-			</Routes>
-		</Router>
-	);
+    return (
+        <QueryClientProvider client={queryClient}>
+            <ReactQueryDevtools initialIsOpen={false} />
+            <Router>
+                <Toaster />
+
+                <Routes>
+                    <Route path='/register' element={<Register />} />
+                    <Route path='/login' element={<Login />} />
+                    <Route path='/reset-password' element={<ResetPassword />} />
+                    <Route path='/password-reset-success' element={<PasswordResetSuccess />} />
+                    <Route
+                        path='/dashboard'
+                        element={
+                            <RequireAuth>
+                                <Dashboard />
+                            </RequireAuth>
+                        }
+                    />
+                    <Route
+                        path='/settings'
+                        element={
+                            <RequireAuth>
+                                <Dashboard />
+                            </RequireAuth>
+                        }
+                    />
+                    <Route path='*' element={<PageNotFound />}></Route>
+                </Routes>
+            </Router>
+        </QueryClientProvider>
+    );
 }
 
 export default App;

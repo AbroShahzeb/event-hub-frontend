@@ -1,19 +1,56 @@
-@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Lora:ital,wght@0,400..700;1,400..700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+@font-face {
+    font-family: 'Proxima Soft';
+    src: url('./assets/fonts/Mark\ Simonson\ -\ Proxima\ Soft\ Bold.otf') format('.otf'),
+        url('./assets/fonts/Mark\ Simonson\ -\ Proxima\ Soft\ Black.otf') format('.otf'),
+        url('./assets/fonts/Mark\ Simonson\ -\ Proxima\ Soft\ Cond\ Extrabold.otf') format('.otf');
+}
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 .inp-animation:focus:not(:placeholder-shown) + .placeholder {
-	top: 0;
-	opacity: 1;
-	visibility: visible;
+    top: 0;
+    opacity: 1;
+    visibility: visible;
 }
 
 .placeholder {
-	top: 50%;
-	opacity: 0;
-	transition: all 0.2s;
-	visibility: hidden;
+    top: 50%;
+    opacity: 0;
+    transition: all 0.2s;
+    visibility: hidden;
+}
+
+.bouncing-loader {
+    display: flex;
+    justify-content: center;
+}
+
+.bouncing-loader > div {
+    width: 8px;
+    height: 8px;
+    margin: 1px 2px;
+    border-radius: 50%;
+    background-color: #fff;
+    opacity: 1;
+    animation: bouncing-loader 0.6s infinite alternate;
+}
+
+@keyframes bouncing-loader {
+    to {
+        opacity: 0.5;
+        transform: translateY(-8px);
+    }
+}
+
+.bouncing-loader > div:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.bouncing-loader > div:nth-child(3) {
+    animation-delay: 0.4s;
 }

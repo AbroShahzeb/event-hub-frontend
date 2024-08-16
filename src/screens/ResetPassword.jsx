@@ -1,6 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { isEmail } from 'validator';
 import Logo from '../components/Logo';
+import { useEffect } from 'react';
 
 function Login() {
     const {
@@ -8,6 +9,10 @@ function Login() {
         handleSubmit,
         formState: { errors },
     } = useForm();
+
+    useEffect(function () {
+        document.title = 'Reset Password | Event Hub';
+    }, []);
 
     function handleLogin(data) {
         console.log(data);
@@ -18,16 +23,16 @@ function Login() {
             <img
                 src='https://play.tailwindcss.com/img/beams.jpg'
                 alt=''
-                class='absolute top-1/2 left-1/2 max-w-none -translate-x-1/2 -translate-y-1/2 h-full'
+                className='absolute top-1/2 left-1/2 max-w-none -translate-x-1/2 -translate-y-1/2 h-full'
                 width='100%'
             />
-            <div class='absolute inset-0 bg-[url(https://play.tailwindcss.com/img/grid.svg)] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]'></div>
+            <div className='absolute inset-0 bg-[url(https://play.tailwindcss.com/img/grid.svg)] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]'></div>
             <div className='z-30 self-start mt-4 justify-self-start h-full'>
                 <Logo />
             </div>
             <div className='max-w-sm p-8 flex flex-col items-start gap-6 border rounded-2xl shadow-lg bg-white bg-opacity-75 backdrop-blur-lg z-10'>
                 <div className='flex flex-col self-stretch gap-2'>
-                    <h2 className='text-2xl md:text-3xl font-extrabold leading-tight tracking-tight text-headings'>
+                    <h2 className='text-2xl md:text-3xl font-extrabold leading-tight tracking-tight font-headings'>
                         Reset Password
                     </h2>
                     <p className=' text-secondary-light leading-normal'>
@@ -41,7 +46,7 @@ function Login() {
                         <input
                             type='text'
                             placeholder='example@email.com'
-                            className='p-3 border rounded-xl w-full text-inherit focus:outline-none focus:border-accent-1-light focus:shadow-sm'
+                            className='p-3 border rounded-xl w-full text-inherit focus:outline-none focus:border-primary-500 focus:shadow-sm'
                             {...register('email', {
                                 required: 'Email is required',
                                 validate: (val) => isEmail(val) || 'Please enter a valid email',
@@ -54,7 +59,7 @@ function Login() {
                         )}
                     </div>
 
-                    <button className='p-3 bg-accent-1-light text-white font-bold rounded-xl self-stretch w-full  hover:shadow-accent-1-light/20 hover:shadow-xl'>
+                    <button className='p-3 bg-primary-500 text-white font-bold rounded-xl self-stretch w-full  hover:shadow-primary-500/20 hover:shadow-xl transition-all'>
                         Reset Password
                     </button>
                 </form>

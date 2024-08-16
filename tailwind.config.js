@@ -13,9 +13,15 @@ export default {
                     light: '#6C757D',
                     dark: '#6C757D',
                 },
-                'accent-1': {
-                    light: 'hsl(330.12, 100%, 50%)',
-                    dark: 'hsl(330.12, 100%, 50%)',
+                primary: {
+                    50: 'hsl(330.12, 100%, 90%)',
+                    100: 'hsl(330.12, 100%, 80%)',
+                    400: 'hsl(330.12, 100%, 70%)',
+                    500: 'hsl(330.12, 100%, 50%)',
+                    600: 'hsl(330.12, 100%, 45%)',
+                    700: 'hsl(330.12, 100%, 35%)',
+                    800: 'hsl(330.12, 100%, 30%)',
+                    900: 'hsl(330.12, 100%, 15%)',
                 },
                 surface: {
                     light: '#ffffff',
@@ -76,7 +82,7 @@ export default {
                 error: '#FF4C4C',
             },
             fontFamily: {
-                headings: 'Proxima Soft Bold',
+                headings: 'Proxima Soft',
                 body: 'Lato',
             },
             borderRadius: {

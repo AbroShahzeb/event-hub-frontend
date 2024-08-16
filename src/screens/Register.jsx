@@ -1,5 +1,5 @@
 import Google from '../assets/devicon_google.svg';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Icon } from '@iconify/react';
 
 import { useForm } from 'react-hook-form';
@@ -7,10 +7,19 @@ import { isEmail } from 'validator';
 
 import { Link } from 'react-router-dom';
 
-import Logo from '../components/Logo';
+import { error } from '../helpers/toastHelper.jsx';
+import BouncingDotsLoader from '../components/BouncingDotsLoader';
 
-function Login() {
+import Logo from '../components/Logo';
+import { useGoogleAuth, useRegisterUser } from '../services/authHooks.jsx';
+import { useGoogleLogin } from '@react-oauth/google';
+
+function Register() {
     const [isPasswordShown, setIsPasswordShown] = useState(false);
+
+    useEffect(function () {
+        document.title = 'Register | Event Hub';
+    }, []);
 
     const {
         register,
@@ -18,9 +27,20 @@ function Login() {
         formState: { errors },
     } = useForm();
 
-    function handleLogin(data) {
-        console.log(data);
+    const { isPending, mutate } = useRegisterUser();
+
+    const { isPending: isGooglePending, mutate: googleMutate } = useGoogleAuth();
+
+    function handleRegister(data) {
+        mutate(data);
     }
+
+    const handleGoogleAuth = useGoogleLogin({
+        onSuccess: (data) => {
+            googleMutate({ accessToken: data.access_token });
+        },
+        onError: (err) => error(err),
+    });
 
     return (
         <main className='w-full min-h-screen h-full flex gap-8 flex-col justify-start items-center px-4 text-text-light relative'>
@@ -29,13 +49,13 @@ function Login() {
                 alt=''
                 className='absolute inset-0 w-full h-full object-cover'
             />
-            <div class='fixed inset-0 bg-[url(https://play.tailwindcss.com/img/grid.svg)] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]'></div>
+            <div className='fixed inset-0 bg-[url(https://play.tailwindcss.com/img/grid.svg)] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]'></div>
             <div className='z-30 self-start mt-4'>
                 <Logo />
             </div>
             <div className='max-w-sm p-8 flex flex-col items-start gap-6 border rounded-2xl shadow-lg bg-white bg-opacity-75 backdrop-blur-lg z-10 mb-8'>
                 <div className='flex flex-col self-stretch gap-2'>
-                    <h2 className='text-2xl md:text-3xl font-extrabold leading-tight tracking-tight text-headings'>
+                    <h2 className='text-2xl md:text-3xl font-extrabold leading-tight tracking-tight font-headings'>
                         👋 Hello there
                     </h2>
                     <p className=' text-secondary-light leading-normal'>
@@ -44,9 +64,14 @@ function Login() {
                 </div>
 
                 <div className='flex flex-col gap-2 self-stretch'>
-                    <div className='flex items-center justify-center p-3 text-base rounded-xl border gap-2 '>
+                    <div
+                        onClick={handleGoogleAuth}
+                        className='flex items-center justify-center p-3 text-base rounded-xl border gap-2 hover:bg-slate-100 cursor-pointer'
+                    >
                         <img src={Google} alt='Google Icon' />
-                        <p className='text-secondary-light'>Continue with Google</p>
+                        <p className='text-secondary-light'>
+                            {isGooglePending ? 'Loading...' : 'Continue with Google'}
+                        </p>
                     </div>
 
                     <p className='before:content-[""] before:h-[1px] before:w-full after:content-[""] after:h-[1px] after:w-full flex items-center gap-1 text-slate-400 before:bg-slate-400 after:bg-slate-400  text-xs'>
@@ -54,12 +79,15 @@ function Login() {
                     </p>
                 </div>
 
-                <form className='w-full flex flex-col gap-2' onSubmit={handleSubmit(handleLogin)}>
+                <form
+                    className='w-full flex flex-col gap-2'
+                    onSubmit={handleSubmit(handleRegister)}
+                >
                     <div className='flex flex-col gap-1'>
                         <input
                             type='text'
                             placeholder='John Doe'
-                            className='p-3 border rounded-xl w-full text-inherit focus:outline-none focus:border-accent-1-light focus:shadow-sm'
+                            className='p-3 border rounded-xl w-full text-inherit focus:outline-none focus:border-primary-500 focus:shadow-sm'
                             {...register('name', {
                                 required: 'name is required',
                                 minLength: {
@@ -78,7 +106,7 @@ function Login() {
                         <input
                             type='text'
                             placeholder='example@gmail.com'
-                            className='p-3 border rounded-xl w-full text-inherit focus:outline-none focus:border-accent-1-light focus:shadow-sm'
+                            className='p-3 border rounded-xl w-full text-inherit focus:outline-none focus:border-primary-500 focus:shadow-sm'
                             {...register('email', {
                                 required: 'Email is required',
                                 validate: (val) => isEmail(val) || 'Please enter a valid email',
@@ -106,7 +134,7 @@ function Login() {
                             />
                             <Icon
                                 icon={isPasswordShown ? 'uil:eye-slash' : 'uil:eye'}
-                                className='-ml-10 text-2xl text-text-light hover:text-accent-1-light transition-all cursor-pointer'
+                                className='-ml-10 text-2xl text-text-light hover:text-primary-500 transition-all cursor-pointer'
                                 onClick={() => setIsPasswordShown((prev) => !prev)}
                             />
                         </div>
@@ -118,8 +146,15 @@ function Login() {
                         )}
                     </div>
 
-                    <button className='p-3 bg-accent-1-light text-white font-bold rounded-xl self-stretch w-full  hover:shadow-accent-1-light/20 hover:shadow-xl'>
-                        Register
+                    <button
+                        className={`p-3  text-white font-bold rounded-xl self-stretch w-full   hover:shadow-xl transition-all flex items-center gap-2 justify-center ${
+                            isPending
+                                ? 'bg-secondary-light hover:shadow-secondary-light/20'
+                                : 'bg-primary-500 hover:shadow-primary-500/20'
+                        }`}
+                    >
+                        {isPending && <BouncingDotsLoader />}
+                        {isPending ? 'Loading' : 'Register'}
                     </button>
                 </form>
                 <div className='flex flex-col self-stretch gap-1 items-center'>
@@ -134,4 +169,4 @@ function Login() {
         </main>
     );
 }
-export default Login;
+export default Register;

@@ -14,6 +14,7 @@ import { useGoogleLogin } from '@react-oauth/google';
 import { useGoogleAuth, useLogin } from '../services/authHooks.jsx';
 
 function Login() {
+    console.log(import.meta.env.VITE_URL);
     const [isPasswordShown, setIsPasswordShown] = useState(false);
 
     useEffect(function () {

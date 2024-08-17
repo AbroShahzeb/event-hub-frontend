@@ -1,8 +1,9 @@
 import axios from 'axios';
+import api from '../helpers/axiosConfig';
 
 export const loginUser = async (data) => {
     try {
-        const res = await axios.post('http://localhost:3000/api/v1/auth/login', data);
+        const res = await api.post('/api/v1/auth/login', data);
         if (res.data.status !== 'success') throw new Error(res.data.message);
         return res.data;
     } catch (err) {
@@ -17,7 +18,7 @@ export const loginUser = async (data) => {
 
 export const registerUser = async (data) => {
     try {
-        const res = await axios.post('http://localhost:3000/api/v1/auth/register', data);
+        const res = await api.post('/api/v1/auth/register', data);
         if (res.data.status !== 'success') throw new Error(res.data.message);
         return res.data;
     } catch (err) {
@@ -33,7 +34,7 @@ export const registerUser = async (data) => {
 
 export const googleAuth = async (data) => {
     try {
-        const res = await axios.post('http://localhost:3000/api/v1/auth/google', data);
+        const res = await api.post('/api/v1/auth/google', data);
         if (res.data.status !== 'success') throw new Error(res.data.message);
         return res.data;
     } catch (err) {

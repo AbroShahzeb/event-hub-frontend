@@ -19,6 +19,7 @@ export function useLogin() {
             success('Successfully logged in. Redirecting...');
 
             localStorage.setItem('token', data.token);
+            localStorage.setItem('user', JSON.stringify(data.user));
 
             dispatch(login(data.user));
             queryClient.setQueryData('authToken', data.token, {
@@ -48,6 +49,7 @@ export function useRegisterUser() {
             console.log(data);
 
             localStorage.setItem('token', data.token);
+            localStorage.setItem('user', JSON.stringify(data.user));
 
             dispatch(login(data.user));
             queryClient.setQueryData('authToken', data.token, {
@@ -74,6 +76,8 @@ export function useGoogleAuth() {
         onSuccess: (data) => {
             success('Successfully logged in. Redirecting...');
             localStorage.setItem('token', data.token);
+            console.log(data);
+            localStorage.setItem('user', JSON.stringify(data.user));
 
             dispatch(login(data.user));
 

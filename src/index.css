@@ -54,3 +54,26 @@
 .bouncing-loader > div:nth-child(3) {
     animation-delay: 0.4s;
 }
+
+/* For Webkit browsers (e.g., Chrome, Safari) */
+html::-webkit-scrollbar {
+    width: 8px;
+}
+
+/* Track */
+html::-webkit-scrollbar-track {
+    background: rgb(226 232 240);
+    border-radius: 10px;
+}
+
+/* Handle */
+html::-webkit-scrollbar-thumb {
+    background: linear-gradient(to bottom, hsl(330.12, 100%, 50%), hsl(330.12, 100%, 35%));
+    border-radius: 10px;
+    transition: all 0.2s;
+}
+
+/* Handle on hover */
+html::-webkit-scrollbar-thumb:hover {
+    background: hsl(330.12, 100%, 45%);
+}

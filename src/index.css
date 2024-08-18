@@ -3,9 +3,9 @@
 
 @font-face {
     font-family: 'Proxima Soft';
-    src: url('./assets/fonts/Mark\ Simonson\ -\ Proxima\ Soft\ Bold.otf') format('.otf'),
-        url('./assets/fonts/Mark\ Simonson\ -\ Proxima\ Soft\ Black.otf') format('.otf'),
-        url('./assets/fonts/Mark\ Simonson\ -\ Proxima\ Soft\ Cond\ Extrabold.otf') format('.otf');
+    src: url('/fonts/Mark\ Simonson\ -\ Proxima\ Soft\ Bold.otf') format('.otf'),
+        url('/fonts/Mark\ Simonson\ -\ Proxima\ Soft\ Black.otf') format('.otf'),
+        url('/fonts/Mark\ Simonson\ -\ Proxima\ Soft\ Cond\ Extrabold.otf') format('.otf');
 }
 
 @tailwind base;

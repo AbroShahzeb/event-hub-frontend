@@ -13,6 +13,7 @@ import BouncingDotsLoader from '../components/BouncingDotsLoader';
 import Logo from '../components/Logo';
 import { useGoogleAuth, useRegisterUser } from '../services/authHooks.jsx';
 import { useGoogleLogin } from '@react-oauth/google';
+import BackgroundEffect from '../components/BackgroundEffect.jsx';
 
 function Register() {
     const [isPasswordShown, setIsPasswordShown] = useState(false);
@@ -44,12 +45,7 @@ function Register() {
 
     return (
         <main className='w-full min-h-screen h-full flex gap-8 flex-col justify-start items-center px-4 text-text-light relative'>
-            <img
-                src='https://play.tailwindcss.com/img/beams.jpg'
-                alt=''
-                className='absolute inset-0 w-full h-full object-cover'
-            />
-            <div className='fixed inset-0 bg-[url(https://play.tailwindcss.com/img/grid.svg)] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]'></div>
+            <BackgroundEffect />
             <div className='z-30 self-start mt-4'>
                 <Logo />
             </div>
@@ -160,7 +156,7 @@ function Register() {
                 <div className='flex flex-col self-stretch gap-1 items-center'>
                     <p>
                         Already a member?{' '}
-                        <Link to='/login' className='text-link-light underline'>
+                        <Link to='/login' className='text-link-light '>
                             Login
                         </Link>
                     </p>

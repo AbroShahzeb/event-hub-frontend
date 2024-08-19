@@ -2,6 +2,7 @@ import { useForm } from 'react-hook-form';
 import { isEmail } from 'validator';
 import Logo from '../components/Logo';
 import { useEffect } from 'react';
+import BackgroundEffect from '../components/BackgroundEffect';
 
 function Login() {
     const {
@@ -20,13 +21,7 @@ function Login() {
 
     return (
         <main className='w-full min-h-screen flex flex-col gap-8 justify-start items-center px-4 text-text-light relative'>
-            <img
-                src='https://play.tailwindcss.com/img/beams.jpg'
-                alt=''
-                className='absolute top-1/2 left-1/2 max-w-none -translate-x-1/2 -translate-y-1/2 h-full'
-                width='100%'
-            />
-            <div className='absolute inset-0 bg-[url(https://play.tailwindcss.com/img/grid.svg)] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]'></div>
+            <BackgroundEffect />
             <div className='z-30 self-start mt-4 justify-self-start h-full'>
                 <Logo />
             </div>

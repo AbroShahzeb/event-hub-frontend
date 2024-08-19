@@ -12,6 +12,7 @@ import BouncingDotsLoader from '../components/BouncingDotsLoader';
 import { useGoogleLogin } from '@react-oauth/google';
 
 import { useGoogleAuth, useLogin } from '../services/authHooks.jsx';
+import BackgroundEffect from '../components/BackgroundEffect.jsx';
 
 function Login() {
     console.log(import.meta.env.VITE_URL);
@@ -44,13 +45,7 @@ function Login() {
 
     return (
         <main className='w-full min-h-screen flex flex-col justify-start items-center px-4 text-text-light gap-4 relative'>
-            <img
-                src='https://play.tailwindcss.com/img/beams.jpg'
-                alt=''
-                className='absolute top-1/2 left-1/2 max-w-none -translate-x-1/2 -translate-y-1/2 h-full'
-                width='100%'
-            />
-            <div className='absolute inset-0 bg-[url(https://play.tailwindcss.com/img/grid.svg)] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]'></div>
+            <BackgroundEffect />
 
             <div className='z-30 self-start mt-4'>
                 <Logo />
@@ -143,7 +138,7 @@ function Login() {
                     </Link>
                     <p>
                         Not a member?{' '}
-                        <Link to='/register' className='text-link-light underline'>
+                        <Link to='/register' className='text-link-light '>
                             Register
                         </Link>
                     </p>

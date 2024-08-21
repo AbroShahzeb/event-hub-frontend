@@ -133,7 +133,7 @@ function Login() {
                     </button>
                 </form>
                 <div className='flex flex-col self-stretch gap-1 items-center'>
-                    <Link to='/reset-password' className='text-link-light'>
+                    <Link to='/forgot-password' className='text-link-light'>
                         Forgot password?
                     </Link>
                     <p>

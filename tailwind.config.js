@@ -101,6 +101,9 @@ export default {
             screens: {
                 xs: '375px',
             },
+            backgroundImage: {
+                grid: 'url(/grid.svg)',
+            },
         },
     },
     plugins: [],

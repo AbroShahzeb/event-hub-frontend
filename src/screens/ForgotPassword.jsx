@@ -1,15 +1,12 @@
 import { useForm } from 'react-hook-form';
+import { isEmail } from 'validator';
 import Logo from '../components/Logo';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import BackgroundEffect from '../components/BackgroundEffect';
-import { Icon } from '@iconify/react';
-import { useParams } from 'react-router-dom';
-import { usePasswordReset } from '../services/authHooks';
+import { useForgotPassword } from '../services/authHooks';
 import BouncingDotsLoader from '../components/BouncingDotsLoader';
 
-function ResetPassword() {
-    const [isPasswordShown, setIsPasswordShown] = useState(false);
-    const { token } = useParams();
+function ForgotPassword() {
     const {
         register,
         handleSubmit,
@@ -20,10 +17,9 @@ function ResetPassword() {
         document.title = 'Reset Password | Event Hub';
     }, []);
 
-    const { isPending, mutate } = usePasswordReset();
+    const { isPending, mutate } = useForgotPassword();
 
-    function handleResetPassword(data) {
-        data['token'] = token;
+    function handleForgotPassword(data) {
         mutate(data);
     }
 
@@ -36,41 +32,31 @@ function ResetPassword() {
             <div className='max-w-sm p-8 flex flex-col items-start gap-6 border rounded-2xl shadow-lg bg-white bg-opacity-75 backdrop-blur-lg z-10'>
                 <div className='flex flex-col self-stretch gap-2'>
                     <h2 className='text-2xl md:text-3xl font-extrabold leading-tight tracking-tight font-headings'>
-                        Reset Password
+                        Forgot Password
                     </h2>
                     <p className=' text-secondary-light leading-normal'>
-                        Enter your new password, try to keep it in mind this time :)
+                        You lost your password? Don't worry mate. Just Enter your email and we'll
+                        send you your password.
                     </p>
                 </div>
 
                 <form
                     className='w-full flex flex-col gap-2'
-                    onSubmit={handleSubmit(handleResetPassword)}
+                    onSubmit={handleSubmit(handleForgotPassword)}
                 >
                     <div className='flex flex-col gap-1'>
-                        <div className='flex items-center'>
-                            <input
-                                type={isPasswordShown ? 'text' : 'password'}
-                                placeholder='Password'
-                                className='p-3 border rounded-xl w-full focus:outline-none focus:border-primary-500 focus:shadow-sm text-inherit'
-                                {...register('password', {
-                                    required: 'Password is required',
-                                    minLength: {
-                                        value: 8,
-                                        message: 'Password cannot be shorter than 8 characters',
-                                    },
-                                })}
-                            />
-                            <Icon
-                                icon={isPasswordShown ? 'uil:eye-slash' : 'uil:eye'}
-                                className='-ml-10 text-2xl text-text-light hover:text-primary-500 transition-all cursor-pointer'
-                                onClick={() => setIsPasswordShown((prev) => !prev)}
-                            />
-                        </div>
-
-                        {errors?.password && (
+                        <input
+                            type='text'
+                            placeholder='example@email.com'
+                            className='p-3 border rounded-xl w-full text-inherit focus:outline-none focus:border-primary-500 focus:shadow-sm'
+                            {...register('email', {
+                                required: 'Email is required',
+                                validate: (val) => isEmail(val) || 'Please enter a valid email',
+                            })}
+                        />
+                        {errors?.email && (
                             <p className='text-secondary-light px-2 text-sm font-semibold'>
-                                {errors.password.message}
+                                {errors.email.message}
                             </p>
                         )}
                     </div>
@@ -83,11 +69,11 @@ function ResetPassword() {
                         }`}
                     >
                         {isPending && <BouncingDotsLoader />}
-                        {isPending ? 'Loading' : 'Reset Password'}
+                        {isPending ? 'Loading' : 'Request Reset Link'}
                     </button>
                 </form>
             </div>
         </main>
     );
 }
-export default ResetPassword;
+export default ForgotPassword;

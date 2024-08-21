@@ -47,3 +47,35 @@ export const googleAuth = async (data) => {
         }
     }
 };
+
+export const forgotPassword = async (data) => {
+    try {
+        const res = await api.post('/api/v1/auth/forgot-password', data);
+        if (res.data.status !== 'success') throw new Error(res.data.message);
+        return res.data;
+    } catch (err) {
+        if (err.response) {
+            const errorMessage =
+                err.response.data.message || 'An error occured during sending reset email';
+            throw new Error(errorMessage);
+        } else {
+            throw new Error(err.message || 'An unknown error occured');
+        }
+    }
+};
+
+export const resetPassword = async (data) => {
+    try {
+        const res = await api.post(`/api/v1/auth/reset-password/${data?.token}`, data);
+        if (res.data.status !== 'success') throw new Error(res.data.message);
+        return res.data;
+    } catch (err) {
+        if (err.response) {
+            const errorMessage =
+                err.response.data.message || 'An error occured during password reset';
+            throw new Error(errorMessage);
+        } else {
+            throw new Error(err.message || 'An unknown error occured');
+        }
+    }
+};

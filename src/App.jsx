@@ -18,6 +18,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import RequireAuth from './components/RequireAuth';
 import { login } from './services/userSlice';
+import ForgotPassword from './screens/ForgotPassword';
 
 export const queryClient = new QueryClient();
 
@@ -55,7 +56,8 @@ function App() {
                 <Routes>
                     <Route path='/register' element={<Register />} />
                     <Route path='/login' element={<Login />} />
-                    <Route path='/reset-password' element={<ResetPassword />} />
+                    <Route path='/forgot-password' element={<ForgotPassword />} />
+                    <Route path='/reset-password/:token' element={<ResetPassword />} />
                     <Route path='/password-reset-success' element={<PasswordResetSuccess />} />
                     <Route
                         path='/dashboard'

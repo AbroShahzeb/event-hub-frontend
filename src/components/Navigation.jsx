@@ -4,7 +4,6 @@ import Logo from './Logo';
 function Navigation() {
     const user = useSelector((state) => state.auth.user);
 
-    console.log(user.imgUrl);
     return (
         <>
             <nav

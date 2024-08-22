@@ -35,8 +35,8 @@ function ForgotPassword() {
                         Forgot Password
                     </h2>
                     <p className=' text-secondary-light leading-normal'>
-                        You lost your password? Don't worry mate. Just Enter your email and we'll
-                        send you your password.
+                        You lost your password? Don't worry . Just Enter your email and send you a
+                        reset link.
                     </p>
                 </div>
 

@@ -1,53 +1,40 @@
-import { useEffect } from "react";
-import Logo from "../components/Logo";
-import { Icon } from "@iconify/react";
-import { Link, useLocation } from "react-router-dom";
+import Logo from '../components/Logo';
+import PageNotFoundIllustration from '../assets/page-not-found.svg';
+import BackgroundEffect from '../components/BackgroundEffect';
+import { Icon } from '@iconify/react';
+import { Link } from 'react-router-dom';
 
 function PageNotFound() {
-	useEffect(function () {
-		document.title = "404 | Event Hub";
-	}, []);
+    return (
+        <main className='w-full min-h-screen flex flex-col gap-8 justify-start items-center px-4 text-text-light relative'>
+            <BackgroundEffect />
+            <div className='z-30 self-start mt-4 justify-self-start h-full'>
+                <Logo />
+            </div>
+            <div className='max-w-lg p-8 flex flex-col items-center gap-6 z-10 justify-center'>
+                <div className='flex flex-col self-stretch items-center gap-2 text-center'>
+                    <div className='h-48'>
+                        <img src={PageNotFoundIllustration} className='h-full' />
+                    </div>
+                    <h2 className='text-3xl md:text-4xl tracking-normal font-extrabold leading-tight font-headings'>
+                        Oopsiee! Page not found
+                    </h2>
+                    <p className=' text-secondary-light leading-normal text-lg font-semibold'>
+                        Page you have been looking for wasn't found. Let us take you back home.
+                    </p>
+                </div>
 
-	const location = useLocation();
-
-	return (
-		<main className='flex items-center justify-center w-full relative p-6 min-h-screen'>
-			<div className='absolute top-3 left-3'>
-				<Logo />
-			</div>
-
-			<div className='grid gap-8 mt-8 w-full xs:w-[375px]'>
-				<div>
-					<div className='flex flex-col text-center gap-1'>
-						<h2 className='text-heading-1 text-accent-light dark:text-accent-dark font-bold font-headings'>
-							404
-						</h2>
-						<p className='font-normal text-body-big text-text-secondary-light dark:text-text-secondary-dark'>
-							Oops! Wrong Turn. Page you request for doesn't exists.
-						</p>
-						<p className='font-normal text-body-big text-text-secondary-light dark:text-text-secondary-dark'>
-							No match for{" "}
-							<span className='text-primary-light dark:text-primary-dark font-bold'>
-								{location.pathname}
-							</span>
-						</p>
-					</div>
-				</div>
-
-				<Link
-					to='/register'
-					className='p-4 self-stretch flex items-center gap-2 justify-center rounded-primary bg-btn-accent-light dark:bg-btn-accent-dark hover:bg-btn-accent-hover-light dark:hover:bg-btn-accent-hover-dark text-body font-bold'
-				>
-					<Icon
-						icon='flowbite:home-outline'
-						fontSize={24}
-						className='text-text-light dark:text-text-dark'
-					/>
-					<p>Back to Home</p>
-				</Link>
-			</div>
-		</main>
-	);
+                <Link
+                    to='/'
+                    className={`p-3 px-6 text-white font-bold rounded-xl self-center   hover:shadow-xl
+                            bg-primary-500  hover:shadow-primary-500/20 flex items-center gap-2 justify-center
+                    }`}
+                >
+                    <Icon icon='ant-design:home-filled' />
+                    Back to Home
+                </Link>
+            </div>
+        </main>
+    );
 }
-
 export default PageNotFound;

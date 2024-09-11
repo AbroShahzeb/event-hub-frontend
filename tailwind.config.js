@@ -27,6 +27,9 @@ export default {
                     light: '#ffffff',
                     dark: 'hsl(222.22, 47.37%, 11.18%)',
                 },
+                card: {
+                    dark: 'hsl(222.22, 47.37%, 11.18%)',
+                },
                 text: {
                     light: 'rgb(51 65 85)',
                     dark: 'rgb(241 245 249)',
@@ -65,7 +68,7 @@ export default {
                 },
                 'input-bg': {
                     light: '#FFFFFF',
-                    dark: '#495057',
+                    dark: '#343a40',
                 },
                 'input-border': {
                     light: '#CED4DA',
@@ -103,6 +106,7 @@ export default {
             },
             backgroundImage: {
                 grid: 'url(/grid.svg)',
+                'grid-dark': 'url(/grid-dark.svg)',
             },
         },
     },

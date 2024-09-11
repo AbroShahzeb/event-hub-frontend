@@ -3,14 +3,11 @@ import PageNotFoundIllustration from '../assets/page-not-found.svg';
 import BackgroundEffect from '../components/BackgroundEffect';
 import { Icon } from '@iconify/react';
 import { Link } from 'react-router-dom';
+import Layout from '../features/auth/layout';
 
 function PageNotFound() {
     return (
-        <main className='w-full min-h-screen flex flex-col gap-8 justify-start items-center px-4 text-text-light relative'>
-            <BackgroundEffect />
-            <div className='z-30 self-start mt-4 justify-self-start h-full'>
-                <Logo />
-            </div>
+        <Layout>
             <div className='max-w-lg p-8 flex flex-col items-center gap-6 z-10 justify-center'>
                 <div className='flex flex-col self-stretch items-center gap-2 text-center'>
                     <div className='h-48'>
@@ -19,7 +16,7 @@ function PageNotFound() {
                     <h2 className='text-3xl md:text-4xl tracking-normal font-extrabold leading-tight font-headings'>
                         Oopsiee! Page not found
                     </h2>
-                    <p className=' text-secondary-light leading-normal text-lg font-semibold'>
+                    <p className=' text-secondary-light dark:text-text-secondary-dark leading-normal text-lg font-semibold'>
                         Page you have been looking for wasn't found. Let us take you back home.
                     </p>
                 </div>
@@ -34,7 +31,7 @@ function PageNotFound() {
                     Back to Home
                 </Link>
             </div>
-        </main>
+        </Layout>
     );
 }
 export default PageNotFound;

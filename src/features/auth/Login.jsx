@@ -1,4 +1,4 @@
-import Google from '../assets/devicon_google.svg';
+import Google from '../../assets/devicon_google.svg';
 import { useState, useEffect } from 'react';
 import { Icon } from '@iconify/react';
 
@@ -6,13 +6,16 @@ import { useForm } from 'react-hook-form';
 import { isEmail } from 'validator';
 import { Link } from 'react-router-dom';
 
-import Logo from '../components/Logo';
+import Logo from '../../components/Logo.jsx';
 
-import BouncingDotsLoader from '../components/BouncingDotsLoader';
+import BouncingDotsLoader from '../../components/BouncingDotsLoader.jsx';
 import { useGoogleLogin } from '@react-oauth/google';
 
-import { useGoogleAuth, useLogin } from '../services/authHooks.jsx';
-import BackgroundEffect from '../components/BackgroundEffect.jsx';
+import { useGoogleAuth, useLogin } from '../../services/authHooks.jsx';
+import BackgroundEffect from '../../components/BackgroundEffect.jsx';
+import { Within } from '@theme-toggles/react';
+
+import AuthLayout from './layout.jsx';
 
 function Login() {
     console.log(import.meta.env.VITE_URL);
@@ -44,18 +47,13 @@ function Login() {
     });
 
     return (
-        <main className='w-full min-h-screen flex flex-col justify-start items-center px-4 text-text-light gap-4 relative'>
-            <BackgroundEffect />
-
-            <div className='z-30 self-start mt-4'>
-                <Logo />
-            </div>
-            <div className='max-w-sm p-8 flex flex-col items-start gap-6 border rounded-2xl shadow-lg bg-white bg-opacity-75 backdrop-blur-lg z-10 mb-8'>
+        <AuthLayout>
+            <div className='max-w-sm p-8 flex flex-col items-start gap-6 border rounded-2xl shadow-lg bg-white/75 dark:bg-card-dark/75 dark:border-border-dark/50 backdrop-blur-lg z-10 mb-8'>
                 <div className='flex flex-col self-stretch gap-2'>
                     <h2 className='text-2xl md:text-3xl font-extrabold leading-tight tracking-tight font-headings'>
                         Login
                     </h2>
-                    <p className=' text-secondary-light leading-normal'>
+                    <p className=' text-secondary-light dark:text-text-secondary-dark leading-normal'>
                         Welcome back, login to catch up with missed things
                     </p>
                 </div>
@@ -63,15 +61,15 @@ function Login() {
                 <div className='flex flex-col gap-2 self-stretch'>
                     <div
                         onClick={handleGoogleLogin}
-                        className='flex items-center justify-center p-3 text-base rounded-xl border gap-2 hover:bg-slate-100 cursor-pointer'
+                        className='flex items-center justify-center p-3 text-base rounded-xl border gap-2 hover:bg-slate-100 dark:hover:bg-slate-800 dark:border-input-border-dark/50  cursor-pointer '
                     >
                         <img src={Google} alt='Google Icon' />
-                        <p className='text-secondary-light'>
+                        <p className='text-secondary-light dark:text-text-secondary-dark'>
                             {isGooglePending ? 'Loading...' : 'Continue with Google'}
                         </p>
                     </div>
 
-                    <p className='before:content-[""] before:h-[1px] before:w-full after:content-[""] after:h-[1px] after:w-full flex items-center gap-1 text-slate-400 before:bg-slate-400 after:bg-slate-400  text-xs'>
+                    <p className='before:content-[""] before:h-[1px] before:w-full after:content-[""] after:h-[1px] after:w-full flex items-center gap-1 text-slate-400 before:bg-slate-400 after:bg-slate-400 dark:text-slate-500 dark:before:bg-slate-500 dark:after:bg-slate-500  text-xs'>
                         OR
                     </p>
                 </div>
@@ -81,14 +79,14 @@ function Login() {
                         <input
                             type='text'
                             placeholder='example@email.com'
-                            className='p-3 border rounded-xl w-full text-inherit focus:outline-none focus:border-primary-500 focus:shadow-sm'
+                            className='p-3 border rounded-xl w-full text-inherit focus:outline-none focus:border-primary-500 dark:focus:border-primary-500 focus:shadow-sm dark:bg-slate-800 dark:border-border-dark/50'
                             {...register('email', {
                                 required: 'Email is required',
                                 validate: (val) => isEmail(val) || 'Please enter a valid email',
                             })}
                         />
                         {errors?.email && (
-                            <p className='text-secondary-light px-2 text-sm font-semibold'>
+                            <p className='text-secondary-light dark:text-text-secondary-dark px-2 text-sm font-semibold'>
                                 {errors.email.message}
                             </p>
                         )}
@@ -98,7 +96,7 @@ function Login() {
                             <input
                                 type={isPasswordShown ? 'text' : 'password'}
                                 placeholder='Password'
-                                className='p-3 border rounded-xl w-full focus:outline-none focus:border-primary-500 focus:shadow-sm text-inherit'
+                                className='p-3 border rounded-xl w-full text-inherit focus:outline-none focus:border-primary-500 dark:focus:border-primary-500 focus:shadow-sm dark:bg-slate-800 dark:border-border-dark/50'
                                 {...register('password', {
                                     required: 'Password is required',
                                     minLength: {
@@ -109,13 +107,13 @@ function Login() {
                             />
                             <Icon
                                 icon={isPasswordShown ? 'uil:eye-slash' : 'uil:eye'}
-                                className='-ml-10 text-2xl text-text-light hover:text-primary-500 transition-all cursor-pointer'
+                                className='-ml-10 text-2xl text-text-light dark:text-text-dark hover:text-primary-500 transition-all cursor-pointer'
                                 onClick={() => setIsPasswordShown((prev) => !prev)}
                             />
                         </div>
 
                         {errors?.password && (
-                            <p className='text-secondary-light px-2 text-sm font-semibold'>
+                            <p className='text-secondary-light dark:text-text-secondary-dark px-2 text-sm font-semibold'>
                                 {errors.password.message}
                             </p>
                         )}
@@ -125,7 +123,7 @@ function Login() {
                         className={`p-3  text-white font-bold rounded-xl self-stretch w-full   hover:shadow-xl transition-all flex items-center gap-2 justify-center ${
                             isPending
                                 ? 'bg-secondary-light hover:shadow-secondary-light/20'
-                                : 'bg-primary-500  hover:shadow-primary-500/20'
+                                : 'bg-primary-500  hover:shadow-primary-500/20 dark:hover:shadow-primary-700/20'
                         }`}
                     >
                         {isPending && <BouncingDotsLoader />}
@@ -133,18 +131,24 @@ function Login() {
                     </button>
                 </form>
                 <div className='flex flex-col self-stretch gap-1 items-center'>
-                    <Link to='/forgot-password' className='text-link-light'>
+                    <Link
+                        to='/forgot-password'
+                        className='text-link-light dark:text-link-dark hover:text-link-hover-light dark:hover:text-link-hover-dark'
+                    >
                         Forgot password?
                     </Link>
                     <p>
                         Not a member?{' '}
-                        <Link to='/register' className='text-link-light '>
+                        <Link
+                            to='/register'
+                            className='text-link-light dark:text-link-dark hover:text-link-hover-light dark:hover:text-link-hover-dark'
+                        >
                             Register
                         </Link>
                     </p>
                 </div>
             </div>
-        </main>
+        </AuthLayout>
     );
 }
 export default Login;

@@ -1,9 +1,10 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Register from './screens/Register';
-import Login from './screens/Login';
-import ResetPassword from './screens/ResetPassword';
+import Register from './features/auth/Register';
+import Login from './features/auth/Login';
+import ResetPassword from './features/auth/ResetPassword';
 import { Toaster } from 'react-hot-toast';
 import 'react-toastify/dist/ReactToastify.css';
+import '@theme-toggles/react/css/Within.css';
 
 import { useEffect } from 'react';
 
@@ -18,7 +19,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import RequireAuth from './components/RequireAuth';
 import { login } from './services/userSlice';
-import ForgotPassword from './screens/ForgotPassword';
+import ForgotPassword from './features/auth/ForgotPassword';
 
 export const queryClient = new QueryClient();
 
@@ -26,6 +27,11 @@ function App() {
     const dispatch = useDispatch();
     useEffect(function () {
         const token = localStorage.getItem('token');
+        const theme = localStorage.getItem('theme');
+
+        if (theme === 'dark') document.getElementsByTagName('html')[0].classList.add('dark');
+        else document.getElementsByTagName('html')[0].classList.remove('dark');
+
         if (token) queryClient.setQueryData('authToken', token);
     }, []);
 

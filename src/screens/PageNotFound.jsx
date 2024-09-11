@@ -5,7 +5,12 @@ import { Icon } from '@iconify/react';
 import { Link } from 'react-router-dom';
 import Layout from '../features/auth/layout';
 
+import { useState } from 'react';
+
+import Model from '../components/UI/Modal';
+
 function PageNotFound() {
+    const [isModalOpen, setIsModalOpen] = useState(false);
     return (
         <Layout>
             <div className='max-w-lg p-8 flex flex-col items-center gap-6 z-10 justify-center'>
@@ -20,6 +25,10 @@ function PageNotFound() {
                         Page you have been looking for wasn't found. Let us take you back home.
                     </p>
                 </div>
+
+                <button onClick={() => setIsModalOpen(true)}>Show Model</button>
+
+                <Model setIsModalShown={setIsModalOpen} isModalShown={isModalOpen} />
 
                 <Link
                     to='/'

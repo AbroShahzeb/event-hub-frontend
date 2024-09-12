@@ -28,7 +28,7 @@ function PageNotFound() {
 
                 <button onClick={() => setIsModalOpen(true)}>Show Model</button>
 
-                <Model setIsModalShown={setIsModalOpen} isModalShown={isModalOpen} />
+                <Model isModalShown={isModalOpen} setIsModalShown={setIsModalOpen} />
 
                 <Link
                     to='/'

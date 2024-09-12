@@ -3,6 +3,7 @@ import { useState } from 'react';
 
 import Backdrop from './Backdrop';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 const modelVariants = {
     open: {
@@ -37,17 +38,26 @@ function Modal({ isModalShown, setIsModalShown }) {
 
                 <div className=' flex flex-col gap-4'>
                     <div className='px-5 flex flex-col gap-2'>
-                        <h3 className='text-2xl'>Your account is going to be suspended soon</h3>
+                        <h3 className='text-2xl'>We think you should login now 😉</h3>
                         <p className='text-base text-text-secondary-light dark:text-text-secondary-dark'>
                             We have noticed violent acitivity in your account, so it may be
                             deactivated at any time. If you think it is not true, then you can talk.
                         </p>
                     </div>
 
-                    <div className='bg-primary-100/20 dark:bg-primary-900 px-5 py-3 flex items-center justify-end'>
-                        <button className='p-2 rounded-lg bg-primary-500 dark:bg-primary-700 text-white'>
-                            Report Issue
+                    <div className=' px-5 py-3 flex items-center justify-end gap-5'>
+                        <button
+                            className='text-sm font-medium text-link-light underline'
+                            onClick={() => setIsModalShown(false)}
+                        >
+                            No, let me stay here
                         </button>
+                        <Link
+                            to='login'
+                            className='p-2 text-sm rounded-lg bg-primary-500 dark:bg-primary-700 text-white'
+                        >
+                            Login
+                        </Link>
                     </div>
                 </div>
             </motion.div>

@@ -7,12 +7,12 @@ import { motion } from 'framer-motion';
 const modelVariants = {
     open: {
         opacity: 1,
-        transform: 'scale(1) translate(-50%, -50%)',
+        transform: 'translate(-50%, -50%) scale(1)',
         display: 'flex',
     },
     closed: {
         opacity: 0,
-        transform: 'scale(0.2) translate(-50%, -50%)',
+        transform: 'translate(-50%, -50%) scale(0.2) ',
         display: 'none',
     },
 };
@@ -22,7 +22,7 @@ function Modal({ isModalShown, setIsModalShown }) {
         <>
             <Backdrop isModalShown={isModalShown} setIsModalShown={setIsModalShown} />
             <motion.div
-                className='z-40 bg-white dark:bg-input-bg-dark absolute top-1/2 left-1/2   rounded-2xl border text-text-light dark:text-text-dark shadow-lg dark:border-border-dark  w-[90%] sm:max-w-sm lg:max-w-md xl:max-w-lg flex flex-col gap-4 overflow-hidden'
+                className='z-40 bg-white dark:bg-input-bg-dark absolute top-1/2 left-1/2  transform -translate-x-1/2 -translate-y-1/2 rounded-2xl border text-text-light dark:text-text-dark shadow-lg dark:border-border-dark  w-[90%] sm:max-w-sm lg:max-w-md xl:max-w-lg flex flex-col gap-4 overflow-hidden transition-all'
                 style={{ transformOrigin: 'center' }}
                 variants={modelVariants}
                 initial={isModalShown ? 'open' : 'closed'}

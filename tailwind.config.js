@@ -107,6 +107,8 @@ export default {
             backgroundImage: {
                 grid: 'url(/grid.svg)',
                 'grid-dark': 'url(/grid-dark.svg)',
+                'bg-hero': 'url(/hero.jpg)',
+                'bg-hero-dark': 'url(/hero-dark.jpg)',
             },
         },
     },

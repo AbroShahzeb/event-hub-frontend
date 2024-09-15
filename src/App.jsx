@@ -21,6 +21,7 @@ import RequireAuth from './components/RequireAuth';
 import { login } from './services/userSlice';
 import ForgotPassword from './features/auth/ForgotPassword';
 import CreateEvent from './features/event/Create Event';
+import LandingPage from './pages/LandingPage';
 
 export const queryClient = new QueryClient();
 
@@ -61,6 +62,7 @@ function App() {
                 <Toaster />
 
                 <Routes>
+                    <Route path='/' element={<LandingPage />} />
                     <Route path='/register' element={<Register />} />
                     <Route path='/login' element={<Login />} />
                     <Route path='/forgot-password' element={<ForgotPassword />} />
